@@ -19,3 +19,7 @@ Gemfile.lock
 
 # macOS
 .DS_Store
+
+# AI
+.claude/
+.codex/
