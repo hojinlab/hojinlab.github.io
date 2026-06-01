@@ -1,26 +1,519 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Research Site</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-            background-color: #f0f2f5;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 3rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hojin Kim · 김호진</title>
+  <meta name="description" content="Hojin Kim (김호진) — Undergraduate researcher at Kookmin University." />
+
+  <!-- Pretendard: clean Latin + Korean coverage -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  />
+
+  <style>
+    :root {
+      /* Dusty pink on warm off-white */
+      --bg: #FBF8F6;
+      --bg-2: #F6EEF0;
+      --surface: #FFFFFF;
+      --border: #EFE3E7;
+      --accent: #C0798E;       /* dusty rose */
+      --accent-deep: #9E5E72;  /* hover / links */
+      --accent-soft: #F3E6EA;  /* chips / section accents */
+      --text: #34292D;
+      --muted: #8C7B80;
+      --shadow: 0 1px 2px rgba(82, 50, 60, 0.04), 0 12px 32px rgba(82, 50, 60, 0.06);
+      --radius: 18px;
+      --maxw: 860px;
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, var(--bg-2), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ---- language toggle visibility ---- */
+    body.lang-en .ko,
+    body.lang-ko .en { display: none !important; }
+
+    a { color: var(--accent-deep); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Header / nav ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: rgba(251, 248, 246, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: 62px;
+    }
+    .brand {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+    .brand .dot { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--accent-deep); text-decoration: none; }
+
+    .lang-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--accent-deep);
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--accent-soft); border-color: var(--accent-soft); }
+
+    /* ---------- Hero / profile ---------- */
+    .hero {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      padding: 60px 0 40px;
+    }
+    .avatar {
+      flex: 0 0 auto;
+      width: 168px;
+      height: 168px;
+      position: relative;
+    }
+    .avatar img,
+    .avatar .avatar-fallback {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--surface);
+      box-shadow: var(--shadow), 0 0 0 1px var(--border);
+    }
+    .avatar img { display: none; background: var(--accent-soft); }
+    .avatar .avatar-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(150deg, var(--accent), var(--accent-deep));
+      color: #fff;
+      font-size: 3.4rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-body { min-width: 0; }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 2.4rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .sub {
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+    .role {
+      font-size: 1.05rem;
+      color: var(--accent-deep);
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    .affil { margin: 0; color: var(--muted); }
+    .affil .lab { color: var(--text); font-weight: 500; }
+    .tagline {
+      margin: 14px 0 0;
+      color: var(--text);
+      max-width: 52ch;
+    }
+
+    .socials { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+    .icon-btn:hover {
+      text-decoration: none;
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+    .icon-btn svg { width: 18px; height: 18px; display: block; }
+    .icon-btn .hf { font-size: 1.15rem; line-height: 1; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 30px 0; border-top: 1px solid var(--border); }
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 0 0 22px;
+    }
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+    .section-title::before {
+      content: "";
+      width: 22px;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--accent);
+      align-self: center;
+    }
+
+    .lead { color: var(--text); margin: 0; max-width: 64ch; }
+
+    /* CV timeline entries */
+    .entry {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 18px;
+      padding: 16px 0;
+    }
+    .entry + .entry { border-top: 1px dashed var(--border); }
+    .entry .when { color: var(--muted); font-size: 0.9rem; font-weight: 500; padding-top: 2px; }
+    .entry .what h3 { margin: 0 0 3px; font-size: 1.04rem; }
+    .entry .what .org { color: var(--accent-deep); font-weight: 500; }
+    .entry .what p { margin: 6px 0 0; color: var(--muted); }
+
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .tag {
+      font-size: 0.82rem;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+
+    /* Links section */
+    .link-list { display: grid; gap: 12px; }
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s ease, transform 0.12s ease;
+    }
+    .link-row:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
+    .link-row .glyph {
+      width: 34px; height: 34px; flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; background: var(--accent-soft); color: var(--accent-deep);
+    }
+    .link-row .glyph svg { width: 18px; height: 18px; }
+    .link-row .glyph .hf { font-size: 1.25rem; line-height: 1; }
+    .link-row .meta { min-width: 0; }
+    .link-row .meta .k { font-weight: 600; color: var(--text); }
+    .link-row .meta .v { color: var(--muted); font-size: 0.9rem; word-break: break-all; }
+
+    .placeholder-note {
+      font-size: 0.82rem;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      border-radius: 8px;
+      padding: 2px 8px;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 48px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .hero { flex-direction: column; text-align: center; padding-top: 44px; gap: 22px; }
+      .avatar, .avatar img, .avatar .avatar-fallback { width: 132px; height: 132px; }
+      .avatar .avatar-fallback { font-size: 2.6rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero h1 .sub { display: block; margin: 4px 0 0; }
+      .socials { justify-content: center; }
+      .tagline { margin-left: auto; margin-right: auto; }
+      .entry { grid-template-columns: 1fr; gap: 4px; }
+      .entry .when { padding-top: 0; }
+    }
+  </style>
 </head>
-<body>
-    <h1>Hello World!</h1>
+
+<body class="lang-en">
+  <header>
+    <div class="wrap nav">
+      <span class="brand">Hojin Kim<span class="dot">.</span></span>
+      <nav class="nav-links">
+        <a href="#about"><span class="en">About</span><span class="ko">소개</span></a>
+        <a href="#education"><span class="en">Education</span><span class="ko">학력</span></a>
+        <a href="#experience"><span class="en">Experience</span><span class="ko">경력</span></a>
+        <a href="#publications"><span class="en">Projects</span><span class="ko">연구·프로젝트</span></a>
+        <a href="#links"><span class="en">Links</span><span class="ko">링크</span></a>
+      </nav>
+      <button class="lang-btn" id="langToggle" type="button" aria-label="Switch language">
+        <span class="en">한국어</span><span class="ko">English</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ===== Hero / profile ===== -->
+    <section class="hero" style="border-top: none;">
+      <div class="avatar">
+        <img id="avatarImg" alt="Hojin Kim (김호진)" />
+        <div class="avatar-fallback" id="avatarFallback">HK</div>
+      </div>
+      <div class="hero-body">
+        <h1>
+          <span class="en">Hojin Kim</span><span class="ko">김호진</span>
+          <span class="sub"><span class="en">김호진</span><span class="ko">Hojin Kim</span></span>
+        </h1>
+        <p class="role">
+          <span class="en">Undergraduate Researcher</span><span class="ko">학부 연구생</span>
+        </p>
+        <p class="affil">
+          <span class="en">Kookmin University</span><span class="ko">국민대학교</span>
+          ·
+          <!-- TODO: replace with your department, e.g. "School of Software" / "소프트웨어학부" -->
+          <span class="en">Dept. of [Your Department]</span><span class="ko">[학과명] 학부</span>
+          <br />
+          <!-- TODO: replace with your lab name (and advisor) -->
+          <span class="lab"><span class="en">[Your] Lab</span><span class="ko">[연구실명] 연구실</span></span>
+        </p>
+        <p class="tagline">
+          <!-- TODO: one-line research interest / bio -->
+          <span class="en">Undergraduate student interested in machine learning and AI research.</span>
+          <span class="ko">머신러닝과 AI 연구에 관심이 있는 학부생입니다.</span>
+        </p>
+
+        <div class="socials">
+          <a class="icon-btn" href="https://github.com/hojinlab" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="icon-btn" href="https://huggingface.co/hojinlab" target="_blank" rel="noopener" aria-label="Hugging Face">
+            <span class="hf" aria-hidden="true">🤗</span>
+            <span>Hugging Face</span>
+          </a>
+          <a class="icon-btn" href="mailto:hojinkim214@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <span>Email</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about">
+      <div class="section-title">
+        <h2><span class="en">About</span><span class="ko">소개</span></h2>
+      </div>
+      <p class="lead">
+        <!-- TODO: a short paragraph about yourself, your interests, and goals. -->
+        <span class="en">I'm Hojin Kim, an undergraduate at Kookmin University. This is a short
+          placeholder bio — replace it with a few sentences about your background, research
+          interests, and what you're currently working on.</span>
+        <span class="ko">국민대학교에 재학 중인 학부생 김호진입니다. 이 문단은 임시 소개글입니다 —
+          본인의 배경, 연구 관심사, 현재 진행 중인 일에 대한 몇 문장으로 바꿔 주세요.</span>
+      </p>
+    </section>
+
+    <!-- ===== Education ===== -->
+    <section id="education">
+      <div class="section-title">
+        <h2><span class="en">Education</span><span class="ko">학력</span></h2>
+      </div>
+      <!-- TODO: edit dates, degree, department -->
+      <div class="entry">
+        <div class="when">20XX – Present</div>
+        <div class="what">
+          <h3>
+            <span class="en">B.S. in [Your Department]</span><span class="ko">[학과명] 학사 과정</span>
+          </h3>
+          <div class="org"><span class="en">Kookmin University, Seoul</span><span class="ko">국민대학교, 서울</span></div>
+          <p>
+            <span class="en">Undergraduate. Add coursework, GPA, or focus areas here.</span>
+            <span class="ko">학부 재학. 수강 과목, 학점, 관심 분야 등을 추가하세요.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section id="experience">
+      <div class="section-title">
+        <h2><span class="en">Experience</span><span class="ko">경력</span></h2>
+      </div>
+      <!-- TODO: add real research / work / lab experience entries -->
+      <div class="entry">
+        <div class="when">20XX – Present</div>
+        <div class="what">
+          <h3><span class="en">Undergraduate Researcher</span><span class="ko">학부 연구생</span></h3>
+          <div class="org"><span class="en">[Your] Lab, Kookmin University</span><span class="ko">[연구실명] 연구실, 국민대학교</span></div>
+          <p>
+            <span class="en">Describe what you do in the lab — projects, methods, responsibilities.</span>
+            <span class="ko">연구실에서 맡은 프로젝트, 사용 기술, 역할 등을 설명하세요.</span>
+          </p>
+          <div class="tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Projects / Publications ===== -->
+    <section id="publications">
+      <div class="section-title">
+        <h2><span class="en">Projects &amp; Publications</span><span class="ko">연구 · 프로젝트</span></h2>
+      </div>
+      <!-- TODO: add projects, papers, or notable repositories -->
+      <div class="entry">
+        <div class="when">20XX</div>
+        <div class="what">
+          <h3><span class="en">Project Title</span><span class="ko">프로젝트 제목</span></h3>
+          <div class="org"><span class="en">Short description or venue</span><span class="ko">간단한 설명 또는 발표처</span></div>
+          <p>
+            <span class="en">One or two sentences. Link to a GitHub repo, demo, or paper.</span>
+            <span class="ko">한두 문장으로 설명하고 GitHub 저장소, 데모, 논문 링크를 추가하세요.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Links ===== -->
+    <section id="links">
+      <div class="section-title">
+        <h2><span class="en">Links</span><span class="ko">링크</span></h2>
+      </div>
+      <div class="link-list">
+        <a class="link-row" href="https://github.com/hojinlab" target="_blank" rel="noopener">
+          <span class="glyph"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+          <span class="meta"><div class="k">GitHub</div><div class="v">github.com/hojinlab</div></span>
+        </a>
+        <a class="link-row" href="https://huggingface.co/hojinlab" target="_blank" rel="noopener">
+          <span class="glyph"><span class="hf" aria-hidden="true">🤗</span></span>
+          <span class="meta"><div class="k">Hugging Face</div><div class="v">huggingface.co/hojinlab</div></span>
+        </a>
+        <a class="link-row" href="mailto:hojinkim214@gmail.com">
+          <span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <span class="meta"><div class="k">Email</div><div class="v">hojinkim214@gmail.com</div></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © <span id="year">2026</span> Hojin Kim · 김호진 &nbsp;·&nbsp;
+      <span class="en">Built on GitHub Pages</span><span class="ko">GitHub Pages로 제작</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // ---- Language toggle (persisted) ----
+      var body = document.body;
+      var KEY = "site-lang";
+      function applyLang(lang) {
+        var isKo = lang === "ko";
+        body.classList.toggle("lang-ko", isKo);
+        body.classList.toggle("lang-en", !isKo);
+        document.documentElement.lang = isKo ? "ko" : "en";
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      applyLang(saved === "ko" ? "ko" : "en");
+
+      var btn = document.getElementById("langToggle");
+      btn.addEventListener("click", function () {
+        var next = body.classList.contains("lang-ko") ? "en" : "ko";
+        applyLang(next);
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+      });
+
+      // ---- Profile photo with graceful fallback ----
+      var img = document.getElementById("avatarImg");
+      var fallback = document.getElementById("avatarFallback");
+      var candidates = [
+        "assets/images/profile.jpg",
+        "assets/images/profile.jpeg",
+        "assets/images/profile.png",
+        "assets/images/profile.webp"
+      ];
+      var i = 0;
+      img.addEventListener("load", function () {
+        img.style.display = "block";
+        fallback.style.display = "none";
+      });
+      img.addEventListener("error", function () {
+        if (i < candidates.length) { img.src = candidates[i++]; }
+        else { img.style.display = "none"; fallback.style.display = "flex"; }
+      });
+      img.src = candidates[i++];
+
+      // ---- Footer year ----
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+    })();
+  </script>
 </body>
 </html>
