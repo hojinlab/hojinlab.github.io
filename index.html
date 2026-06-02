@@ -15,17 +15,17 @@
 
   <style>
     :root {
-      /* Dusty pink accent on a warm off-white background */
-      --bg: #FBF8F6;
-      --bg-2: #F6EEF0;
-      --surface: #FFFFFF;
-      --border: #EFE3E7;
-      --accent: #DAA695;       /* dusty pink (reference swatch) */
-      --accent-deep: #B26A52;  /* deeper rose — text / links / hover */
-      --accent-soft: #F6E7E0;  /* light dusty-pink tint — chips / soft fills */
-      --text: #34292D;
-      --muted: #8C7B80;
-      --shadow: 0 1px 2px rgba(82, 50, 60, 0.04), 0 12px 32px rgba(82, 50, 60, 0.06);
+      /* Clean white + soft black, neon cyan-teal accent */
+      --bg: #FFFFFF;           /* page background: pure white */
+      --surface: #FFFFFF;      /* cards/surfaces (separated by border) */
+      --text: #1F1F1F;         /* soft black body text */
+      --muted: #6E6E6E;        /* secondary text (dates, captions) */
+      --border: #EAEAEA;       /* borders / dividers */
+      --accent: #0FBCC4;       /* neon cyan-teal — deco / surfaces / icons only */
+      --accent-deep: #0A7C82;  /* deep teal — emphasis text / links / hover */
+      --accent-soft: #D6F5F6;  /* pale teal tint — chips / highlight bg */
+      --hl: #B8F0F2;           /* highlighter underline tint */
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.06);
       --radius: 18px;
       --maxw: 860px;
       font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
@@ -38,9 +38,7 @@
 
     body {
       margin: 0;
-      background:
-        radial-gradient(1200px 600px at 80% -10%, var(--bg-2), transparent 60%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
@@ -54,6 +52,14 @@
     a { color: var(--accent-deep); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* highlighter — neon teal swipe behind emphasized text */
+    .hl {
+      background: linear-gradient(transparent 55%, var(--hl) 55%);
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      padding: 0 0.04em;
+    }
+
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
     /* ---------- Header / nav ---------- */
@@ -62,7 +68,7 @@
       top: 0;
       z-index: 20;
       backdrop-filter: saturate(140%) blur(10px);
-      background: rgba(251, 248, 246, 0.78);
+      background: rgba(255, 255, 255, 0.82);
       border-bottom: 1px solid var(--border);
     }
     .nav {
@@ -123,22 +129,14 @@
     .avatar .avatar-fallback {
       width: 168px;
       height: 168px;
-      border-radius: 50%;
+      border-radius: 14px;
       object-fit: cover;
-      border: 4px solid var(--surface);
-      box-shadow: var(--shadow), 0 0 0 1px var(--border);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
     }
-    .avatar img { display: none; background: var(--accent-soft); }
-    .avatar .avatar-fallback {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(150deg, var(--accent), var(--accent-deep));
-      color: #fff;
-      font-size: 3.4rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
+    .avatar img { display: none; }
+    .avatar .avatar-fallback { display: block; }
 
     .hero-body { min-width: 0; }
     .hero h1 {
@@ -189,7 +187,7 @@
       background: var(--accent-soft);
       transform: translateY(-1px);
     }
-    .icon-btn svg { width: 18px; height: 18px; display: block; }
+    .icon-btn svg { width: 18px; height: 18px; display: block; color: var(--accent-deep); }
     .icon-btn .hf { font-size: 1.15rem; line-height: 1; }
 
     /* ---------- Sections ---------- */
@@ -286,7 +284,6 @@
       .nav-links { display: none; }
       .hero { flex-direction: column; text-align: center; padding-top: 44px; gap: 22px; }
       .avatar, .avatar img, .avatar .avatar-fallback { width: 132px; height: 132px; }
-      .avatar .avatar-fallback { font-size: 2.6rem; }
       .hero h1 { font-size: 2rem; }
       .hero h1 .sub { display: block; margin: 4px 0 0; }
       .socials { justify-content: center; }
@@ -319,7 +316,7 @@
     <section class="hero" style="border-top: none;">
       <div class="avatar">
         <img id="avatarImg" alt="Hojin Kim (김호진)" />
-        <div class="avatar-fallback" id="avatarFallback">HK</div>
+        <div class="avatar-fallback" id="avatarFallback" aria-hidden="true"></div>
       </div>
       <div class="hero-body">
         <h1>
@@ -365,9 +362,9 @@
       </div>
       <p class="lead">
         <span class="en">Undergraduate in the School of Electrical Engineering at Kookmin University,
-          researching physical AI and sim-to-real in the ARC Lab.</span>
+          researching <span class="hl">physical AI and sim-to-real</span> in the ARC Lab.</span>
         <span class="ko">국민대학교 전자공학부 학부생으로, 자율로보틱스및제어(ARC) 연구실에서
-          physical AI와 sim-to-real을 연구하고 있습니다.</span>
+          <span class="hl">physical AI와 sim-to-real</span>을 연구하고 있습니다.</span>
       </p>
     </section>
 
