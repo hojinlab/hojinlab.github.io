@@ -1,0 +1,19 @@
+# ── Site ───────────────────────────────────────────────
+title: "Hojin Kim · 김호진"
+description: "Hojin Kim (김호진) — Undergraduate researcher in the ARC Lab (Autonomous Robotics & Control), School of Electrical Engineering, Kookmin University."
+author: "Hojin Kim"
+lang: en
+
+url: "https://hojinlab.github.io"
+baseurl: ""
+
+# ── Build ──────────────────────────────────────────────
+encoding: utf-8
+
+# Files that should not be copied into the built site (_site)
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
