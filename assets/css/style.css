@@ -8,6 +8,7 @@
       --accent: #0FBCC4;       /* neon cyan-teal — deco / surfaces / icons only */
       --accent-deep: #0A7C82;  /* deep teal — emphasis text / links / hover */
       --accent-soft: #D6F5F6;  /* pale teal tint — chips / highlight bg */
+      --accent-ink: #097075;   /* darker teal — small text on accent-soft */
       --hl: #B8F0F2;           /* highlighter underline tint */
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.06);
       --radius: 18px;
@@ -156,11 +157,10 @@
       display: inline-flex;
       align-items: center;
       color: var(--accent-deep);
-      transition: transform 0.12s ease, color 0.15s ease;
+      transition: transform 0.12s ease;
     }
     .icon-btn:hover {
       text-decoration: none;
-      color: var(--accent);
       transform: translateY(-1px);
     }
     .icon-btn svg { width: 22px; height: 22px; display: block; }
@@ -205,7 +205,7 @@
     .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
     .tag {
       font-size: 0.82rem;
-      color: var(--accent-deep);
+      color: var(--accent-ink);
       background: var(--accent-soft);
       border-radius: 999px;
       padding: 4px 11px;
@@ -238,7 +238,7 @@
 
     .placeholder-note {
       font-size: 0.82rem;
-      color: var(--accent-deep);
+      color: var(--accent-ink);
       background: var(--accent-soft);
       border-radius: 8px;
       padding: 2px 8px;
